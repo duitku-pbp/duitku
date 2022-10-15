@@ -1,59 +1,3 @@
-# Guide
-
-Clone the repository
-
-```
-git clone git@github.com:duitku-pbp/duitku.git
-cd duitku
-```
-
-Create a virtual environment with
-
-```
-Create Virtual Environment:
-python3 -m venv env
-
-Ubuntu/MacOS:
-source /env/bin/activate
-pip install -r requirements.txt
-
-Windows:
-env\Scripts\activate.bat
-pip install -r requirements.txt
-```
-
-Migrate all the initial migrations
-
-```
-python manage.py migrate
-```
-
-Start Your App/Module
-
-```
-python manage.py startapp [APP_NAME]
-Example: python manage.py startapp kalkulator
-```
-
-Start Development
-
-```
-python manage.py runserver
-```
-
-Github stuff
-
-```
-git checkout -b [BRANCH NAME]
-Example: git checkout -b andrew-module
-git add . (For commiting all changes)
-git commit -m "[YOUR COMMIT MESSAGE]"
-Example: git commit -m "added new models"
-git push -u origin [BRANCH NAME]
-```
-
-> After your branch has been pushed, the changes will be integrated after a pull request has been created and approved.
-
 # duitku
 
 <!-- Tags and Links -->
@@ -75,3 +19,37 @@ git push -u origin [BRANCH NAME]
 - Cinthya Yosephine Depari
 - Nanda Tristan Ardiansyah
 - Nayyara Airlangga Raharjo
+
+## Story
+
+Salah satu isu yang diangkat pada G20 adalah financial inclusion. Financial inclusion adalah kesetaraan peluang dalam mengakses layanan keuangan. G20 ingin meningkatkan financial inclusion. And that’s where we come in.
+
+Duitku adalah aplikasi yang bertujuan untuk meningkatkan financial inclusion dengan memanfaatkan media digital yang sudah ada saat ini. Duitku menyediakan berbagai layanan untuk mendukung tujuan tersebut seperti manajemen uang, berita terkait dunia keuangan, blog keuangan, dll. Dengan berbagai layanan yang disediakan, kami berharap masyarakat dapat lebih mudah mengedukasi diri dan mengakses berbagai layanan keuangan yang ada
+
+## Modules
+
+- Wallet - Angga<br>
+  Fitur yang merepresentasikan dompet-dompet/tabungan seorang pengguna. Pengguna dapat memasukkan dan mengeluarkan uang ke dalam dompet-dompetnya setiap kali terjadi transaksi pemasukan dan pengeluaran. Fitur ini bertujuan agar pengguna dapat lebih terbiasa untuk melacak pemasukan dan pengeluarannya agar bisa lebih mengontrol keuangan mereka sendiri dan bisa lebih percaya diri dalam membeli/menjual instrumen keuangan yang sesuai dengan kondisi keuangan mereka.
+- Blog - Andrew<br>
+  Fitur ini akan menampilkan berbagai artikel informatif mengenai dunia keuangan untuk meningkatkan financial literacy masyarakat.
+- Donasi - Arya
+- Financial News - Cinthya
+- Investasi - Tristan
+
+## User Roles
+
+### Normal Users
+
+- Authenticated
+  - Mengakses fitur wallet, membuat dompet dan transaksi, melihat report dari wallet
+  - Mengakses halaman blog dan halaman detailnya
+  - Mengakses dan melakukan donasi
+  - Mengakses berita-berita financial
+  - Melakukan investasi
+- Unauthenticated
+  - Melihat halaamn utama dan login/registrasi
+
+### Admin/Super Users
+
+- Melakukan administrasi dan pemantauan data via dashboard admin
+- Mengunggah blog post baru serta update berita-berita
