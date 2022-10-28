@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.humanize',
+    'investasiku',
 ]
 
 MIDDLEWARE = [

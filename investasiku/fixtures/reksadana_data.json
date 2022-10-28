@@ -1,0 +1,197 @@
+[
+    {
+        "model": "investasiku.Investment",
+        "pk":1,
+        "fields": {
+            "investment_name" : "Sucorinvest Money Market Fund",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 4.55,
+            "drawdown_1Y" : 0.00,
+            "aum" : "10.32T",
+            "expense_ratio" : 1.49,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":2,
+        "fields": {
+            "investment_name" : "Batavia Dana Kas Maxima",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 2.32,
+            "drawdown_1Y" : 0.00,
+            "aum" : "4.89T",
+            "expense_ratio" : 1.21,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":3,
+        "fields": {
+            "investment_name" : "Dana Reksa Seruni Pasar Uang III",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 2.49,
+            "drawdown_1Y" : -0.07,
+            "aum" : "3.18T",
+            "expense_ratio" : 0.51,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":4,
+        "fields": {
+            "investment_name" : "Manulife Dana Kas II Kelas A",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 2.22,
+            "drawdown_1Y" : -0.04,
+            "aum" : "4.70T",
+            "expense_ratio" : 1.06,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":5,
+        "fields": {
+            "investment_name" : "BNI-AM Dana Likuid",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 2.52,
+            "drawdown_1Y" : -0.10,
+            "aum" : "2.05T",
+            "expense_ratio" : 0.51,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":11,
+        "fields": {
+            "investment_name" : "Manulife Obligasi Unggulan Kelas A",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : 0.64,
+            "drawdown_1Y" : -7.13,
+            "aum" : "1.54T",
+            "expense_ratio" : 1.31,
+            "min_buy" : 10000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":12,
+        "fields": {
+            "investment_name" : "ABF Indonesia Bond Index Fund",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : -1.49,
+            "drawdown_1Y" : -4.35,
+            "aum" : "4.81T",   
+            "expense_ratio" : 0.21,
+            "min_buy" : 1000000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":13,
+        "fields": {
+            "investment_name" : "Schroder Dana Mantap Plus II",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : -2.73,
+            "drawdown_1Y" : -6.10,
+            "aum" : "2.14T",   
+            "expense_ratio" : 1.54,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":14,
+        "fields": {
+            "investment_name" : "Manulife Obligasi Negara Indonesia II Kelas A",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : -2.64,
+            "drawdown_1Y" : -5.08,
+            "aum" : "4.37T",   
+            "expense_ratio" : 0.21,
+            "min_buy" : 10000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":15,
+        "fields": {
+            "investment_name" : "Eastspring Syariah Fixed Income Amanah Kelas A",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : -0.37,
+            "drawdown_1Y" : -2.45,
+            "aum" : "0.83T",   
+            "expense_ratio" : 0.60,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":21,
+        "fields": {
+            "investment_name" : "BNI-AM Indeks IDX30",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 4.10,
+            "drawdown_1Y" : -14.05,
+            "aum" : "1.67T",   
+            "expense_ratio" : 1.57,
+            "min_buy" : 10000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":22,
+        "fields": {
+            "investment_name" : "Sucorinvest Equity Fund",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 16.07,
+            "drawdown_1Y" : -9.94,
+            "aum" : "2.81T",   
+            "expense_ratio" : 4.73,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":23,
+        "fields": {
+            "investment_name" : "Eastspring Investments Value Discovery Kelas A",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 0.83,
+            "drawdown_1Y" : -19.27,
+            "aum" : "0.73T",   
+            "expense_ratio" : 1.64,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":24,
+        "fields": {
+            "investment_name" : "Manulife Syariah Sektoral Amanah Kelas A",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 2.93,
+            "drawdown_1Y" : -10.64,
+            "aum" : "266.26B",   
+            "expense_ratio" : 3.11,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":25,
+        "fields": {
+            "investment_name" : "Schroder Dana Istimewa",
+            "investment_type" : "Saham",
+            "cagr_1Y" : -2.72,
+            "drawdown_1Y" : -14.44,
+            "aum" : "0.80T",   
+            "expense_ratio" : 3.93,
+            "min_buy" : 100000
+        }
+    }
+]

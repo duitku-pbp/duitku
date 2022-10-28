@@ -1,0 +1,13 @@
+.col-sm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    border: 2px solid black;
+    height: 500px
+}
+h1 {
+    font-family: Gill Sans, sans-serif;
+    font-stretch: expanded;
+    color: r;
+}

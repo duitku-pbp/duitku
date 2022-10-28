@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block content %} {% load static %} {% load humanize %}
+	<link rel="stylesheet" href="static/style.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body,
+        html {
+            background-color: white;
+            color: black;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            font-family: "Roboto", sans-serif;
+            
+        }
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+            text-align:center;
+        }
+        .portofolio {
+            text-align:left;
+        }
+        .right {
+            text-align:right;
+        }
+        .btn-pasar-uang {
+            background-image: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/coins-icon.png);
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .btn-obligasi {
+            background-image: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/certificate-icon.png);
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .btn-saham {
+            background-image: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/dollar-stats-icon.png);
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .button {
+            background-color: rgba(255, 255, 255, 0); /* Green */
+            border: none;
+            color: white;
+            padding: 18px 18px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card w-75">
+        <div class="card-body">
+            <h3>Pilihan Reksadana Untukmu</h3>
+            <div class="row">
+                <div class="col-sm">
+                    <a href="{% url 'investasiku:show_pasaruang' %}"><button class="button btn-pasar-uang"></button></a>
+                    <h6>Pasar Uang</h6>
+                </div>
+                <div class="col-sm">
+                    <a href="{% url 'investasiku:show_obligasi' %}"><button class="button btn-obligasi"></button></a>
+                    <h6>Obligasi</h6>
+                </div>
+                <div class="col-sm">
+                    <a href="{% url 'investasiku:show_saham' %}"><button class="button btn-saham"></button></a>
+                    <h6>Saham</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card w-75">
+        <div class="card-body">
+            <h3>Portofolio kamu</h3>
+        </div>
+        <div class="card w-75 portofolio">
+            <div class="card-body">
+                <h5>Nilai Portofolio</h5>
+                <h6>Rp</h6>
+                <div class="row">
+                    <div class="col-sm">
+                        <h5>Nilai Keuntungan</h5>
+                        <h6>Rp</h6>
+                    </div>
+                    <div class="col-sm right">
+                        <h5>Imbal Hasil</h5>
+                        <h6>Rp</h6>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}
