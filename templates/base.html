@@ -18,13 +18,14 @@
 
 	<body>
 		<div style="height: 60px"></div>
-		<div class="topnav">
-			<div style="display: flex; align-items: center; padding: 0">
+		<div class="topnav" style="z-index: 2">
+			<div style="display: flex; align-items: center; padding: 0;">
 				<a href="/">Home</a>
 				<a href="{% url 'blog:index' %}">Blog</a>
 				{% if request.user.is_superuser %}
 				<a class="active" href="{% url 'blog:add_post' %}">+ New Post</a>
 				{% endif %}
+				<a href="{% url 'donasi:show_ajax' %}">Donasi</a>
 			</div>
 			<div style="display: flex; align-items: center; padding: 0">
 				{% if not request.user.is_authenticated %}
