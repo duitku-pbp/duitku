@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'authentication',
     'blog',
     'landing',
+    'wallet',
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.humanize',
