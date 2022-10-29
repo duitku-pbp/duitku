@@ -10,11 +10,13 @@ const createWallet = async (event) => {
 
   const csrfToken = getCookie("csrftoken")
 
-  await fetch("/wallet/create", {
+  res = await fetch("/wallet/create", {
     method: "POST",
     headers: {
       "X-CSRFTOKEN": csrfToken
     },
     body: JSON.stringify(data)
   })
+
+  window.location.assign(res.url)
 }
