@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from wallet.helpers import write_json_response
-from wallet.models import Wallet
+from wallet.models import Transaction, Wallet
 
 # Create your views here.
 @login_required(login_url='/authentication/login')
@@ -53,6 +53,39 @@ def create_wallet(req: HttpRequest) -> HttpResponse:
             description=data["description"],
             balance=data["initial-balance"],
         )
+
+        return redirect("wallet:index")
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def create_transaction(req: HttpRequest) -> HttpResponse:
+    if req.method == "POST":
+        data = json.loads(req.body)
+
+        wallet: Wallet | None = Wallet.objects.filter(
+            owner=req.user, pk=data["wallet"]
+        ).first()
+        if wallet is None:
+            return write_json_response(404, 'Wallet does not exist')
+
+        Transaction.objects.create(
+            wallet=wallet,
+            amount=data["amount"],
+            type=data["type"],
+            done_on=data["done-on"],
+            actor=req.user,
+        )
+
+        if data["type"] != "INCOME" and data["type"] != "OUTCOME":
+            return write_json_response(400, "Invalid transaction type")
+        elif data["type"] == "INCOME":
+            wallet.balance += float(data["amount"])
+        else:
+            wallet.balance -= float(data["amount"])
+
+        wallet.save()
 
         return redirect("wallet:index")
 

@@ -1,6 +1,7 @@
 from django.urls import path
 
 from wallet.views import (
+    create_transaction,
     create_transaction_page,
     create_wallet,
     create_wallet_page,
@@ -17,4 +18,5 @@ urlpatterns = [
     path('api/create', create_wallet, name='api-create-wallet'),
     path('api/', fetch_wallets, name='api-fetch-wallets'),
     path('transaction/create', create_transaction_page, name='create-transaction'),
+    path('api/transaction/create', create_transaction, name='api-create-transaction'),
 ]
