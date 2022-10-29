@@ -1,0 +1,18 @@
+{% extends 'wallet/base.html' %}
+
+{% block walletcontent %}
+<form class="form wallet__center" method="POST">
+  <h1 class="wallet__form-header">Create New Wallet</h1>
+
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" class="wallet__form-input" placeholder="Emergency Funds">
+
+  <label for="initial-balance">Initial Balance (Rp.)</label>
+  <input type="number" step="1" min="0" id="initial-balance" name="initial-balance" class="wallet__form-input"
+    placeholder="0">
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="6" style="resize: none;"
+    placeholder="Use in case of emergencies only. Takes care of 6 months of living expenses."></textarea>
+</form>
+{% endblock walletcontent %}
