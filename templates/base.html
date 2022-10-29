@@ -21,6 +21,7 @@
 		<div class="topnav">
 			<div style="display: flex; align-items: center; padding: 0">
 				<a href="/">Home</a>
+        <a href="{% url 'wallet:index' %}">Wallet</a>
 				<a href="{% url 'blog:index' %}">Blog</a>
 				{% if request.user.is_superuser %}
 				<a class="active" href="{% url 'blog:add_post' %}">+ New Post</a>
@@ -55,5 +56,6 @@
 			integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
 			crossorigin="anonymous"
 		></script>
+    {% block script %} {% endblock script %}
 	</body>
 </html>

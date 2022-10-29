@@ -1,8 +1,8 @@
 from django.urls import path
 
-from wallet.views import test
+from wallet.views import index
 
 
 app_name = 'wallet'
 
-urlpatterns = [path('', test, name='test')]
+urlpatterns = [path('', index, name='index')]
