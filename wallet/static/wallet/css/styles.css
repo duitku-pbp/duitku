@@ -52,3 +52,9 @@
   width: 90%;
   max-width: 480px;
 }
+
+.wallet__form-btn {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
