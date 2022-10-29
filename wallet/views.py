@@ -9,20 +9,38 @@ from wallet.models import Wallet
 
 # Create your views here.
 @login_required(login_url='/authentication/login')
-def index(request: HttpRequest) -> HttpResponse:
-    return render(request, 'wallet/index.html')
+def index(req: HttpRequest) -> HttpResponse:
+    if req.method == "GET":
+        return render(req, 'wallet/index.html')
+
+    return write_json_response(405, 'Method not allowed')
 
 
 @login_required(login_url='/authentication/login')
-def create_wallet(request: HttpRequest) -> HttpResponse:
+def fetch_wallets(req: HttpRequest) -> HttpResponse:
+    if req.method == "GET":
+        wallets = Wallet.objects.filter(owner=req.user)
+
+        return write_json_response(200, wallets)
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def create_wallet_page(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         return render(request, 'wallet/create-wallet.html')
 
-    elif request.method == "POST":
-        data = json.loads(request.body)
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def create_wallet(req: HttpRequest) -> HttpResponse:
+    if req.method == "POST":
+        data = json.loads(req.body)
 
         Wallet.objects.create(
-            owner=request.user,
+            owner=req.user,
             name=data["name"],
             description=data["description"],
             balance=data["initial-balance"],
