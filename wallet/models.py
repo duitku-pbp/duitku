@@ -16,6 +16,7 @@ class TransactionType(models.TextChoices):
 
 
 class Transaction(models.Model):
+    actor = models.ForeignKey(to=User, on_delete=models.CASCADE)
     wallet = models.ForeignKey(to=Wallet, on_delete=models.CASCADE)
     amount = models.FloatField()
     done_on = models.DateField(default=timezone.now)
