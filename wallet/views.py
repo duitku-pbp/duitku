@@ -19,9 +19,9 @@ def index(req: HttpRequest) -> HttpResponse:
 @login_required(login_url='/authentication/login')
 def fetch_wallets(req: HttpRequest) -> HttpResponse:
     if req.method == "GET":
-        wallets = Wallet.objects.filter(owner=req.user)
+        wallets = Wallet.objects.filter(owner=req.user).values()
 
-        return write_json_response(200, wallets)
+        return write_json_response(200, list(wallets))
 
     return write_json_response(405, 'Method not allowed')
 
