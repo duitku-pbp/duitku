@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -22,6 +23,22 @@ def fetch_wallets(req: HttpRequest) -> HttpResponse:
         wallets = Wallet.objects.filter(owner=req.user).values()
 
         return write_json_response(200, list(wallets))
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def fetch_transactions(req: HttpRequest) -> HttpResponse:
+    if req.method == "GET":
+        transactions = list(
+            Transaction.objects.filter(actor=req.user)
+            .order_by('-done_on', '-id')
+            .values()
+        )
+
+        return write_json_response(
+            200, json.loads(json.dumps(transactions, cls=DjangoJSONEncoder))
+        )
 
     return write_json_response(405, 'Method not allowed')
 
