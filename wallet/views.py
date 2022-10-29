@@ -35,6 +35,14 @@ def create_wallet_page(request: HttpRequest) -> HttpResponse:
 
 
 @login_required(login_url='/authentication/login')
+def create_transaction_page(req: HttpRequest) -> HttpResponse:
+    if req.method == "GET":
+        return render(req, 'wallet/create-transaction.html')
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
 def create_wallet(req: HttpRequest) -> HttpResponse:
     if req.method == "POST":
         data = json.loads(req.body)
