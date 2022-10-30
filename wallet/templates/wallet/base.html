@@ -9,7 +9,11 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="wallet__container">
+<div id="wallet__loading">
+  <div class="wallet__center wallet__loading-coin"></div>
+</div>
+
+<div id="wallet__container" class="wallet__container">
   {% block walletcontent %} {% endblock walletcontent %}
 </div>
 {% endblock content %}
