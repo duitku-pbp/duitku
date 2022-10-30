@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from wallet.helpers import write_json_response
-from wallet.models import Transaction, Wallet
+from wallet.models import Transaction, TransactionType, Wallet
 
 # Create your views here.
 @login_required(login_url='/authentication/login')
@@ -104,7 +104,26 @@ def wallet_detail(req: HttpRequest, id: int) -> HttpResponse:
 
         data = json.loads(req.body)
 
-        wallet.balance = float(data["balance"])
+        input_balance = float(data["balance"])
+
+        if wallet.balance != input_balance:
+            amount, t_type = (
+                (input_balance - wallet.balance, TransactionType.INCOME)
+                if input_balance > wallet.balance
+                else (wallet.balance - input_balance, TransactionType.OUTCOME)
+            )
+
+            transaction = Transaction(
+                amount=amount,
+                actor=req.user,
+                wallet=wallet,
+                type=t_type,
+                description="Adjust Balance",
+            )
+
+            transaction.save()
+
+        wallet.balance = input_balance
         wallet.name = data["name"]
         wallet.description = data["description"]
 
