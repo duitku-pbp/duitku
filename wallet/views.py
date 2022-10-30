@@ -28,6 +28,18 @@ def fetch_wallets(req: HttpRequest) -> HttpResponse:
 
 
 @login_required(login_url='/authentication/login')
+def wallet_detail_page(req: HttpRequest, id: int) -> HttpResponse:
+    if req.method == "GET":
+        wallet: Wallet | None = Wallet.objects.filter(owner=req.user, pk=id).first()
+        if wallet is None:
+            return write_json_response(404, 'Wallet not found')
+
+        return render(req, "wallet/wallet-detail.html", {'wallet': wallet})
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
 def fetch_transactions(req: HttpRequest) -> HttpResponse:
     if req.method == "GET":
         transactions = list(

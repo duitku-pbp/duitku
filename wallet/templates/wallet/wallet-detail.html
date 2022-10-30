@@ -1,0 +1,35 @@
+{% extends 'wallet/base.html' %}
+
+{% block walletcontent %}
+<form id="wallet__wallet-detail" class="form wallet__center" method="POST" onsubmit="updateWallet(event)">
+  <h1 class="wallet__form-header">Wallet Detail</h1>
+
+  <input type="hidden" value="{{ wallet.id }}" name="wallet-id">
+
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" class="wallet__form-input" placeholder="Emergency Funds" required disabled
+    value="{{ wallet.name }}">
+
+  <label for="balance">Current Balance (Rp.)</label>
+  <input type="number" step="1" min="0" id="balance" name="balance" class="wallet__form-input" placeholder="0" required
+    disabled value="{{ wallet.balance }}">
+
+  <label for="description">Description</label>
+  {% if wallet.description %}
+  <textarea disabled id="description" name="description" rows="6" style="resize: none;"
+    placeholder="Use in case of emergencies only. Takes care of 6 months of living expenses.">{{wallet.description}}</textarea>
+  {% else %}
+  <textarea disabled id="description" name="description" rows="6" style="resize: none;"
+    placeholder="Use in case of emergencies only. Takes care of 6 months of living expenses."></textarea>
+  {% endif %}
+
+  <div id="wallet__edit-btns" class="wallet__form-btns" hidden>
+    <button class="btn btn-danger wallet__form-btns-child" type="button"
+      onclick="editWalletDetailForm(false)">Cancel</button>
+    <button class="btn btn-primary wallet__form-btns-child" type="submit">Update</button>
+  </div>
+
+  <button id="wallet__edit-btn" class="btn btn-primary wallet__form-btn" type="button"
+    onclick="editWalletDetailForm(true)">Edit</button>
+</form>
+{% endblock walletcontent %}
