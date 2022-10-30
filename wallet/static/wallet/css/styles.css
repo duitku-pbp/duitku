@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .wallet__container {
   width: 100%;
   /* Height of navbar */
