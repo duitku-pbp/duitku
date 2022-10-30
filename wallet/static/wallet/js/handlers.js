@@ -1,3 +1,12 @@
+const renderWallets = async () => {
+  const res = await fetch("/wallet/api/")
+  const wallets = await res.json()
+
+  wallets.forEach(wallet => {
+    document.getElementById("wallet__wallets").innerHTML += walletCard(wallet)
+  });
+}
+
 const createWallet = async (event) => {
   event.preventDefault()
 
