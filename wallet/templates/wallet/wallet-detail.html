@@ -1,7 +1,7 @@
 {% extends 'wallet/base.html' %}
 
 {% block walletcontent %}
-<form id="wallet__wallet-detail" class="form wallet__center" method="POST" onsubmit="updateWallet(event)">
+<form id="wallet__wallet-detail" class="form wallet__center" method="PUT" onsubmit="updateWallet(event)">
   <h1 class="wallet__form-header">Wallet Detail</h1>
 
   <input type="hidden" value="{{ wallet.id }}" name="wallet-id">

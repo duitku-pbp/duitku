@@ -38,15 +38,17 @@ const updateWallet = async (event) => {
 
   const formData = new FormData(event.target)
   let data = {}
+  let id
 
   formData.forEach((v, k) => {
-    data[k] = v
+    if (k === "wallet-id") id = v
+    else data[k] = v
   })
 
   const csrfToken = getCookie("csrftoken")
 
-  res = await fetch("/wallet/api/create/", {
-    method: "POST",
+  res = await fetch(`/wallet/api/${id}/`, {
+    method: "PUT",
     headers: {
       "X-CSRFTOKEN": csrfToken
     },

@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
+from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -84,6 +85,32 @@ def create_wallet(req: HttpRequest) -> HttpResponse:
         )
 
         return redirect("wallet:index")
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def wallet_detail(req: HttpRequest, id: int) -> HttpResponse:
+    if req.method == "GET":
+        wallet: Wallet | None = Wallet.objects.filter(owner=req.user, pk=id).first()
+        if wallet is None:
+            return write_json_response(404, 'Wallet not found')
+
+        return write_json_response(200, model_to_dict(wallet))
+    elif req.method == "PUT":
+        wallet: Wallet | None = Wallet.objects.filter(owner=req.user, pk=id).first()
+        if wallet is None:
+            return write_json_response(404, 'Wallet not found')
+
+        data = json.loads(req.body)
+
+        wallet.balance = float(data["balance"])
+        wallet.name = data["name"]
+        wallet.description = data["description"]
+
+        wallet.save()
+
+        return redirect('wallet:wallet-detail', id=id)
 
     return write_json_response(405, 'Method not allowed')
 
