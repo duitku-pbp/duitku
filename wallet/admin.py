@@ -5,7 +5,19 @@ from wallet.models import Transaction, Wallet
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'id',
+        'actor',
+        'wallet_id',
+        'amount',
+        'done_on',
+        'type',
+        'description',
+    ]
+
+    @admin.display()
+    def wallet_id(self, obj):
+        return obj.wallet.pk
 
 
 class TransactionInline(admin.StackedInline):
@@ -17,3 +29,4 @@ class TransactionInline(admin.StackedInline):
 @admin.register(Wallet)
 class WalletAdmin(admin.ModelAdmin):
     inlines = [TransactionInline]
+    list_display = ['id', 'owner', 'name', 'balance', 'description']
