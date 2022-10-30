@@ -1,6 +1,9 @@
 const renderWallets = async () => {
   const res = await fetch("/wallet/api/")
   const wallets = await res.json()
+  const totalBalance = wallets.reduce((total, wallet) => total + wallet.balance, 0)
+
+  document.getElementsByClassName("wallet__wallets-total-balance")[0].textContent = `Total: Rp. ${totalBalance}`
 
   wallets.forEach(wallet => {
     document.getElementById("wallet__wallets").innerHTML += walletCard(wallet)
