@@ -7,6 +7,21 @@ const walletCard = (wallet) => `
   </div>
 `
 
+const transactionsDateGroup = (date) => {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    weekday: "short",
+  })
+
+  return `
+  <div class="wallet__transaction-date-group" id="wallet__transaction-${date}">
+    <h1 class="wallet__transaction-date">${formattedDate}</h1>
+  </div>
+`
+}
+
 const transactionCard = (transaction) => `
   <div class="wallet__transaction">
     <p class="wallet__transaction-desc">

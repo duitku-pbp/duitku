@@ -105,6 +105,21 @@ a {
   flex-direction: column;
 }
 
+.wallet__transaction-date-group {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.wallet__transaction-date {
+  font-size: 1.5rem;
+  justify-self: left;
+  width: 100%;
+}
+
 .wallet__wallet, .wallet__transaction {
   width: 90%;
   padding: 0.25rem 1rem;
@@ -112,7 +127,11 @@ a {
   border-left: 1px solid black;
 }
 
-.wallet__wallet:nth-child(3), .wallet__transaction:first-child {
+.wallet__transaction {
+  width: 100%;
+}
+
+.wallet__wallet:nth-child(3), .wallet__transaction:nth-child(2) {
   border-radius: 10px 10px 0 0;
   border: 1px solid black;
   margin-bottom: 0;
@@ -142,21 +161,25 @@ a {
     font-size: 1.5rem;
     margin-bottom: 0;
   }
+
+  .wallet__transaction-date {
+    font-size: 1.25rem;
+  }
   
   .wallet__wallets-total-balance {
     font-size: 1rem;
     margin-bottom: 1rem;
   }
 
-  .wallet__wallet {
+  .wallet__wallet, .wallet__transaction {
     padding: 0.25rem 0.75rem;
   }
 
-  .wallet__wallet-name {
+  .wallet__wallet-name, .wallet__transaction-desc {
     font-size: 1rem;
   }
 
-  .wallet__wallet-text {
+  .wallet__wallet-text, .wallet__transaction-text {
     font-size: 0.8rem;
   }
 }

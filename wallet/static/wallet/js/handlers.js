@@ -90,8 +90,14 @@ const renderTransactions = async () => {
 
   /* document.getElementsByClassName("wallet__transactions-total")[0].textContent = `Total: Rp. ${totalBalance}` */
 
-  transactions.forEach(transaction => {
-    document.getElementById("wallet__transactions").innerHTML += transactionCard(transaction)
+  transactions.forEach(transaction => { 
+    document.getElementById("wallet__transactions").innerHTML += transactionsDateGroup(transaction["date"])
+
+    const trxs = transaction["transactions"]
+
+    trxs.forEach((trx) => {
+      document.getElementById("wallet__transaction-" + transaction["date"]).innerHTML += transactionCard(trx)
+    })
   });
 }
 

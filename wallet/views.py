@@ -1,4 +1,5 @@
 import json
+import itertools
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import model_to_dict
@@ -49,9 +50,18 @@ def fetch_transactions(req: HttpRequest) -> HttpResponse:
             .values()
         )
 
-        return write_json_response(
-            200, json.loads(json.dumps(transactions, cls=DjangoJSONEncoder))
-        )
+        key_fn = lambda trx: trx['done_on']
+        transactions_map_by_date = itertools.groupby(transactions, key_fn)
+
+        transactions = []
+        for date, trxs in transactions_map_by_date:
+            trxs = list(trxs)
+            for i in range(len(trxs)):
+                trxs[i]['done_on'] = str(trxs[i]['done_on'])
+
+            transactions.append({'date': str(date), 'transactions': trxs})
+
+        return write_json_response(200, transactions)
 
     return write_json_response(405, 'Method not allowed')
 
