@@ -9,6 +9,7 @@ from wallet.views import (
     fetch_wallets,
     index,
     transaction_detail,
+    transaction_detail_page,
     transactions_page,
     wallet_detail,
     wallet_detail_page,
@@ -28,6 +29,7 @@ urlpatterns = [
     path('api/transaction/', fetch_transactions, name='api-fetch-transactions'),
     path('transaction/create/', create_transaction_page, name='create-transaction'),
     path('api/transaction/create/', create_transaction, name='api-create-transaction'),
+    path('transaction/<int:id>/', transaction_detail_page, name='transaction-detail'),
     path(
         'api/transaction/<int:id>/', transaction_detail, name='api-transaction-detail'
     ),

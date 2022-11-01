@@ -148,6 +148,24 @@ const loadWalletsInDropdown = (wallets, id='wallet', showBalance=false) => {
   })
 }
 
+const editTransactionDetailForm = (edit) => {
+  if (edit) {
+    document.getElementById("wallet__detail-option-btns").hidden = true 
+    document.getElementById("wallet__detail-edit-btns").hidden = false
+
+    document.querySelectorAll("#wallet__transaction-detail > :not(select[id=\"wallet\"])").forEach((element) => {
+      element.removeAttribute("disabled")
+    })
+  } else {
+    document.getElementById("wallet__detail-option-btns").hidden = false
+    document.getElementById("wallet__detail-edit-btns").hidden = true
+
+    document.querySelectorAll("#wallet__transaction-detail > :not(button)").forEach((element) => {
+      element.setAttribute("disabled", true)
+    })
+  }
+}
+
 const editWalletDetailForm = (edit) => {
   if (edit) {
     document.getElementById("wallet__detail-option-btns").hidden = true 

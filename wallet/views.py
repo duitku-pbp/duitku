@@ -136,16 +136,41 @@ def create_wallet(req: HttpRequest) -> HttpResponse:
 
 
 @login_required(login_url='/authentication/login')
-def transaction_detail(req: HttpRequest, id: int) -> HttpResponse:
+def transaction_detail_page(req: HttpRequest, id: int) -> HttpResponse:
     if req.method == "GET":
-        transaction: Transaction | None = Transaction.objects.filter(
-            actor=req.user, pk=id
-        ).first()
+        transaction: Transaction | None = (
+            Transaction.objects.select_related('wallet')
+            .filter(pk=id, actor=req.user)
+            .first()
+        )
         if transaction is None:
             return write_json_response(404, 'Transaction not found')
 
         transaction_obj = model_to_dict(transaction)
         transaction_obj["done_on"] = str(transaction_obj["done_on"])
+        transaction_obj["wallet"] = model_to_dict(transaction.wallet)
+
+        return render(
+            req, "wallet/transaction-detail.html", {'transaction': transaction_obj}
+        )
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def transaction_detail(req: HttpRequest, id: int) -> HttpResponse:
+    if req.method == "GET":
+        transaction: Transaction | None = (
+            Transaction.objects.select_related('wallet')
+            .filter(actor=req.user, pk=id)
+            .first()
+        )
+        if transaction is None:
+            return write_json_response(404, 'Transaction not found')
+
+        transaction_obj = model_to_dict(transaction)
+        transaction_obj["done_on"] = str(transaction_obj["done_on"])
+        transaction_obj["wallet"] = model_to_dict(transaction.wallet)
 
         return write_json_response(200, transaction_obj)
 
