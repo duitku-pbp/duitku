@@ -23,4 +23,4 @@ class Transaction(models.Model):
     type = models.CharField(
         max_length=len(TransactionType.OUTCOME), choices=TransactionType.choices
     )
-    description = models.TextField(null=True)
+    description = models.CharField(max_length=50)
