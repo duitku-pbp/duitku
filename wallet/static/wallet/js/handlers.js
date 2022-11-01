@@ -132,10 +132,10 @@ const createTransaction = async (event) => {
   window.location.assign(res.url)
 }
 
-const loadWalletsInDropdown = (wallets) => {
+const loadWalletsInDropdown = (wallets, id='wallet', showBalance=false) => {
   wallets.forEach(wallet => {
-    document.getElementById('wallet').innerHTML += `
-<option value=${wallet.id}>${wallet.name} (${wallet.balance})</option>
+    document.getElementById(id).innerHTML += `
+<option value=${wallet.id}>${wallet.name} ${ showBalance ? `(${wallet.balance})` : ""}</option>
 `
   })
 }

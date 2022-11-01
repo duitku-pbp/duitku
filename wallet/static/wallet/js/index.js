@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
 
     const wallets = await res.json()
-    loadWalletsInDropdown(wallets)
+    loadWalletsInDropdown(wallets, 'wallet', true)
   }
 
   if (route === '/wallet/') {
@@ -32,6 +32,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (route === '/wallet/transaction/') {
+    const res = await fetch("/wallet/api/", {
+      headers: {
+        'X-CSRFTOKEN': csrftoken
+      }
+    })
+
+    const wallets = await res.json()
+    loadWalletsInDropdown(wallets, 'from-wallet')
+
     await renderTransactions()
   }
 })
