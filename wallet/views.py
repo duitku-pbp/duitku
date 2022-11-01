@@ -48,11 +48,23 @@ def fetch_transactions(req: HttpRequest) -> HttpResponse:
 
         transactions = []
 
+        def map_transaction(trx: Transaction):
+            trx_obj = model_to_dict(trx)
+            trx_obj['wallet'] = model_to_dict(trx.wallet)
+            trx_obj['done_on'] = str(trx.done_on)
+
+            return trx_obj
+
         if wallet_id == 'all':
             transactions = list(
-                Transaction.objects.filter(actor=req.user)
-                .order_by('-done_on', '-id')
-                .values()
+                map(
+                    map_transaction,
+                    list(
+                        Transaction.objects.select_related('wallet')
+                        .filter(actor=req.user)
+                        .order_by('-done_on', '-id')
+                    ),
+                )
             )
         else:
             wallet: Wallet | None = Wallet.objects.filter(
@@ -62,9 +74,14 @@ def fetch_transactions(req: HttpRequest) -> HttpResponse:
                 return write_json_response(404, 'Wallet not found')
 
             transactions = list(
-                Transaction.objects.filter(actor=req.user, wallet=wallet)
-                .order_by('-done_on', '-id')
-                .values()
+                map(
+                    map_transaction,
+                    list(
+                        Transaction.objects.select_related('wallet')
+                        .filter(actor=req.user, wallet=wallet)
+                        .order_by('-done_on', '-id')
+                    ),
+                )
             )
 
         key_fn = lambda trx: trx['done_on']
@@ -72,11 +89,7 @@ def fetch_transactions(req: HttpRequest) -> HttpResponse:
 
         transactions = []
         for date, trxs in transactions_map_by_date:
-            trxs = list(trxs)
-            for i in range(len(trxs)):
-                trxs[i]['done_on'] = str(trxs[i]['done_on'])
-
-            transactions.append({'date': str(date), 'transactions': trxs})
+            transactions.append({'date': date, 'transactions': list(trxs)})
 
         return write_json_response(200, transactions)
 
