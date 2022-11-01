@@ -140,6 +140,31 @@ const createTransaction = async (event) => {
   window.location.assign(res.url)
 }
 
+const updateTransaction = async (event) => {
+  event.preventDefault()
+
+  const formData = new FormData(event.target)
+  let data = {}
+  let id
+
+  formData.forEach((v, k) => {
+    if (k === "transaction-id") id = v
+    else data[k] = v
+  })
+
+  const csrfToken = getCookie("csrftoken")
+
+  res = await fetch(`/wallet/api/transaction/${id}/`, {
+    method: "PUT",
+    headers: {
+      "X-CSRFTOKEN": csrfToken
+    },
+    body: JSON.stringify(data)
+  })
+
+  window.location.assign(res.url)
+}
+
 const loadWalletsInDropdown = (wallets, id='wallet', showBalance=false) => {
   wallets.forEach(wallet => {
     document.getElementById(id).innerHTML += `

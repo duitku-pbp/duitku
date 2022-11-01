@@ -174,6 +174,54 @@ def transaction_detail(req: HttpRequest, id: int) -> HttpResponse:
 
         return write_json_response(200, transaction_obj)
 
+    elif req.method == "PUT":
+        transaction: Transaction | None = (
+            Transaction.objects.select_related('wallet')
+            .filter(actor=req.user, pk=id)
+            .first()
+        )
+        if transaction is None:
+            return write_json_response(404, 'Transaction not found')
+
+        wallet: Wallet = transaction.wallet
+        data = json.loads(req.body)
+
+        prev_amount = transaction.amount
+        prev_t_type = transaction.type
+
+        transaction.description = data["description"]
+        transaction.amount = data["amount"]
+        transaction.done_on = data["done-on"]
+        transaction.type = data["type"]
+
+        transaction.save()
+
+        amount = float(data["amount"])
+        amount_diff = abs(amount - prev_amount)
+        t_type = transaction.type
+
+        if t_type == TransactionType.INCOME:
+            if prev_t_type == TransactionType.INCOME:
+                if amount > prev_amount:
+                    wallet.balance += amount_diff
+                else:
+                    wallet.balance -= amount_diff
+            else:
+                wallet.balance += prev_amount + amount
+
+        else:
+            if prev_t_type == TransactionType.OUTCOME:
+                if amount > prev_amount:
+                    wallet.balance -= amount_diff
+                else:
+                    wallet.balance += amount_diff
+            else:
+                wallet.balance -= prev_amount + amount
+
+        wallet.save()
+
+        return redirect('wallet:transaction-detail', id=id)
+
     return write_json_response(405, 'Method not allowed')
 
 
