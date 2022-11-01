@@ -12,6 +12,8 @@ const transactionCard = (transaction) => `
     <p class="wallet__transaction-desc">
       <a href="/wallet/transaction/${transaction.id}">${transaction.description}</a>
     </p>
-    <p class="wallet__transaction-text">Rp. ${transaction.amount}</p>
+    <p class="wallet__transaction-text" style="color: ${transaction.type === 'INCOME' ? "green" : "red"};">
+      Rp. ${transaction.type === "INCOME" ? "+" : "-"}${transaction.amount}
+    </p>
   </div>
 `
