@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block meta %}
+{% load static %}
+{% load humanize %}
+<title>Duitku - Wallet</title>
+<link rel="stylesheet" type="text/css" href="{% static 'wallet/css/styles.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<div id="wallet__loading">
+  <div class="wallet__center wallet__loading-coin"></div>
+</div>
+
+<div id="wallet__container" class="wallet__container">
+  {% block walletcontent %} {% endblock walletcontent %}
+</div>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'wallet/js/utils.js' %}"></script>
+<script type="text/javascript" src="{% static 'wallet/js/components.js' %}"></script>
+<script type="text/javascript" src="{% static 'wallet/js/handlers.js' %}"></script>
+<script type="text/javascript" src="{% static 'wallet/js/index.js' %}"></script>
+{% endblock script %}
