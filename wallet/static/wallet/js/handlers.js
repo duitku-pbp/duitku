@@ -91,15 +91,15 @@ const loadWalletsInDropdown = (wallets) => {
 
 const editWalletDetailForm = (edit) => {
   if (edit) {
-    document.getElementById("wallet__edit-btns").hidden = false
-    document.getElementById("wallet__edit-btn").hidden = true
+    document.getElementById("wallet__detail-option-btns").hidden = true 
+    document.getElementById("wallet__detail-edit-btns").hidden = false
 
     document.querySelectorAll("#wallet__wallet-detail > *").forEach((element) => {
       element.removeAttribute("disabled")
     })
   } else {
-    document.getElementById("wallet__edit-btns").hidden = true
-    document.getElementById("wallet__edit-btn").hidden = false
+    document.getElementById("wallet__detail-option-btns").hidden = false
+    document.getElementById("wallet__detail-edit-btns").hidden = true
 
     document.querySelectorAll("#wallet__wallet-detail > :not(button)").forEach((element) => {
       element.setAttribute("disabled", true)

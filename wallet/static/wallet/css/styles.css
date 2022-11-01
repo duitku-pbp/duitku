@@ -72,6 +72,10 @@ a {
   width: 48%;
 }
 
+.wallet__modal-form-btns-child {
+  width: 47%;
+}
+
 .wallet__form-btn {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
