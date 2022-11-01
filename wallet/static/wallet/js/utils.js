@@ -28,3 +28,16 @@ const getLast12Months = () => {
 
   return dates
 }
+
+const restrictMaxDate = () => {
+  const now = new Date()
+  const maxDate = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+
+  const month = (maxDate.getMonth() + 1).toString().padStart(2, "0")
+  const date = maxDate.getDate().toString().padStart(2, "0")
+  const maxDateVal = maxDate.getFullYear() + "-" + month + "-" + date
+
+  document.querySelectorAll(`input[type="date"]`).forEach((element) => {
+    element.setAttribute('max', maxDateVal)
+  })
+}

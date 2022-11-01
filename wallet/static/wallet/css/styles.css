@@ -3,6 +3,10 @@ a {
   color: black;
 }
 
+.topnav {
+  z-index: 999;
+}
+
 .wallet__container {
   width: 100%;
   /* Height of navbar */
@@ -109,6 +113,11 @@ a {
   margin-top: 6rem;
 }
 
+#wallet__transactions {
+  position: absolute;
+  top: 30%;
+}
+
 .wallet__report-card {
   width: 90%;
   border: 0.5px solid black;
@@ -195,10 +204,6 @@ a {
   align-items: center;
   flex-direction: column;
   margin: 1rem 0;
-}
-
-.wallet__transaction-date-group:first-child {
-  margin-top: 420px;
 }
 
 .wallet__transaction-date {

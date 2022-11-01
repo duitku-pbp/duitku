@@ -48,5 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await renderTransactions()
   }
+
+  restrictMaxDate()
 })
 
