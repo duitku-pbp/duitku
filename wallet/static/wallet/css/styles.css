@@ -38,6 +38,7 @@ a {
 }
 
 .wallet__form-input, form > input, form > textarea {
+  width: 100%;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
@@ -95,7 +96,7 @@ a {
   margin-bottom: 1rem;
 }
 
-#wallet__wallets, #wallet__transactions {
+#wallet__wallets, #wallet__transactions, #wallet__report {
   min-width: 280px;
   width: 100%;
   max-width: 768px;
@@ -103,6 +104,23 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.wallet__report-card {
+  width: 90%;
+  border: 0.5px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wallet__report-month {
+  font-size: 1.25rem;
 }
 
 .wallet__transaction-head {
@@ -184,6 +202,10 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
+  .wallet__report-month {
+    font-size: 1rem;
+  }
+
   .wallet__wallets-header {
     font-size: 1.5rem;
     margin-bottom: 0;

@@ -198,6 +198,21 @@ const loadWalletsInDropdown = (wallets, id='wallet', showBalance=false) => {
   })
 }
 
+const loadMonthsInReportDropdown = () => {
+  const months = getLast12Months()
+
+  months.forEach((date) => {
+    const month = (date.getMonth() + 1).toString().padStart(2, "0")
+    const dateNum = date.getDate().toString().padStart(2, "0")
+    const dateStr = date.getFullYear() + "-" + month + "-" + dateNum
+    const showMonth = month + "/" + date.getFullYear()
+    document.getElementById('report-month').innerHTML += `
+
+<option value=${dateStr}>${showMonth}</option>
+`
+  })
+}
+
 const editTransactionDetailForm = (edit) => {
   if (edit) {
     document.getElementById("wallet__detail-option-btns").hidden = true 

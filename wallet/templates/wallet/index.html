@@ -1,7 +1,12 @@
 {% extends 'wallet/base.html' %}
 
 {% block walletcontent %}
-<div class="report">
+<div id="wallet__report" class="wallet__report">
+  <h1 class="wallet__wallets-header">Report</h1>
+  <div class="wallet__report-card">
+    <select class="wallet__report-month wallet__form-input" id="report-month" name="report-month">
+    </select>
+  </div>
 </div>
 <div id="wallet__wallets" class="wallet__display-wallets">
   <h1 class="wallet__wallets-header">My Wallets</h1>

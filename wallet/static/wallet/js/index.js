@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (route === '/wallet/') {
+    loadMonthsInReportDropdown()
     await renderWallets()
   }
 

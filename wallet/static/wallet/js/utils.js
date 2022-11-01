@@ -16,3 +16,15 @@ const getCookie = (name) => {
 
   return cookie
 }
+
+const getLast12Months = () => {
+  const now = new Date()
+  let dates = []
+
+  for (let i = 0; i > -12; i--) {
+    const past = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    dates.push(past)
+  }
+
+  return dates
+}
