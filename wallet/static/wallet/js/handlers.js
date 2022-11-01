@@ -206,10 +206,25 @@ const loadMonthsInReportDropdown = () => {
     const dateVal = date.getFullYear() + "-" + month
     const showMonth = month + "/" + date.getFullYear()
     document.getElementById('report-month').innerHTML += `
-
 <option value=${dateVal}>${showMonth}</option>
 `
   })
+}
+
+const loadReportForCurrentPeriod = async (period) => {
+  res = await fetch(`/wallet/api/report/${period}/`)
+
+  report = await res.json()
+
+  document.getElementById('report-income').innerText = "+" + report.income
+  document.getElementById('report-outcome').innerText = "-" + report.outcome
+  document.getElementById('report-net-income').innerText = report.net_income
+}
+
+const reportPeriodOnChange = async () => {
+  period = document.getElementById('report-month').value
+
+  await loadReportForCurrentPeriod(period)
 }
 
 const editTransactionDetailForm = (edit) => {

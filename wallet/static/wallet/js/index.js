@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (route === '/wallet/') {
     loadMonthsInReportDropdown()
+
+    const period = document.getElementById('report-month').value
+    loadReportForCurrentPeriod(period)
+
     await renderWallets()
   }
 

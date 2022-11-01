@@ -4,7 +4,8 @@
 <div id="wallet__report" class="wallet__report">
   <h1 class="wallet__wallets-header">Report</h1>
   <div class="wallet__report-card">
-    <select class="wallet__report-month wallet__form-input" id="report-month" name="report-month">
+    <select onchange="reportPeriodOnChange();" class="wallet__report-month wallet__form-input" id="report-month"
+      name="report-month">
     </select>
     <div class="wallet__report-income-outcome">
       <div class="wallet__report-income">

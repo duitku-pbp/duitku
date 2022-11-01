@@ -105,6 +105,10 @@ a {
   flex-direction: column;
 }
 
+#wallet__report {
+  margin-top: 6rem;
+}
+
 .wallet__report-card {
   width: 90%;
   border: 0.5px solid black;
