@@ -123,6 +123,44 @@ a {
   font-size: 1.25rem;
 }
 
+.wallet__report-income-outcome, .wallet__report-net-income {
+  margin-top: 1.25rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.wallet__report-net-income {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet__report-income, .wallet__report-outcome {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#report-income {
+  color: green;
+}
+
+#report-outcome {
+  color: red;
+}
+
+.wallet__report-amount-title {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.wallet__report-amount {
+  font-size: 1.5rem;
+}
+
 .wallet__transaction-head {
   min-width: 280px;
   width: 100%;
@@ -202,6 +240,14 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
+  .wallet__report-amount-title {
+    font-size: 1rem;
+  }
+
+  .wallet__report-amount {
+    font-size: 1rem;
+  }
+
   .wallet__report-month {
     font-size: 1rem;
   }
