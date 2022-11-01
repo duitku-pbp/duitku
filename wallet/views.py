@@ -77,12 +77,31 @@ def create_wallet(req: HttpRequest) -> HttpResponse:
     if req.method == "POST":
         data = json.loads(req.body)
 
-        Wallet.objects.create(
+        wallet = Wallet(
             owner=req.user,
             name=data["name"],
             description=data["description"],
             balance=data["initial-balance"],
         )
+
+        wallet.save()
+
+        initial_balance = float(data["initial-balance"])
+        if initial_balance != 0:
+            balance, t_type = (
+                (initial_balance, TransactionType.INCOME)
+                if initial_balance > 0
+                else (abs(initial_balance), TransactionType.OUTCOME)
+            )
+            transaction = Transaction(
+                wallet=wallet,
+                actor=req.user,
+                amount=balance,
+                type=t_type,
+                description="Initial Balance",
+            )
+
+            transaction.save()
 
         return redirect("wallet:index")
 
