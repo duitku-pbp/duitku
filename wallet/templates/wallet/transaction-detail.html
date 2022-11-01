@@ -12,7 +12,7 @@
       <div class="modal-body">
         <form id="confirmDeleteForm" method="post" onsubmit="deleteTransaction(event)"
           style="min-width: 280px; width: 100%; max-width: 480px;">
-          <input type="hidden" name="wallet-id" id="wallet-id" value="{{ transaction.id }}">
+          <input type="hidden" name="transaction-id" id="transaction-id" value="{{ transaction.id }}">
           <p>Are you sure you would like to delete this transaction?</p>
         </form>
       </div>

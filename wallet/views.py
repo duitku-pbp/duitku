@@ -222,6 +222,27 @@ def transaction_detail(req: HttpRequest, id: int) -> HttpResponse:
 
         return redirect('wallet:transaction-detail', id=id)
 
+    elif req.method == "DELETE":
+        transaction: Transaction | None = (
+            Transaction.objects.select_related('wallet')
+            .filter(actor=req.user, pk=id)
+            .first()
+        )
+        if transaction is None:
+            return write_json_response(404, 'Transaction not found')
+
+        wallet: Wallet = transaction.wallet
+
+        if transaction.type == TransactionType.INCOME:
+            wallet.balance -= transaction.amount
+        else:
+            wallet.balance += transaction.amount
+
+        wallet.save()
+        transaction.delete()
+
+        return redirect('wallet:transactions')
+
     return write_json_response(405, 'Method not allowed')
 
 
