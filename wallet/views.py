@@ -1,11 +1,13 @@
+import calendar
 import json
 import itertools
+
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Sum
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect, render
-from django.urls import reverse
 
 from wallet.helpers import write_json_response
 from wallet.models import Transaction, TransactionType, Wallet
@@ -37,6 +39,50 @@ def wallet_detail_page(req: HttpRequest, id: int) -> HttpResponse:
             return write_json_response(404, 'Wallet not found')
 
         return render(req, "wallet/wallet-detail.html", {'wallet': wallet})
+
+    return write_json_response(405, 'Method not allowed')
+
+
+@login_required(login_url='/authentication/login')
+def report_for_month(req: HttpRequest, period: str) -> HttpResponse:
+    if req.method == "GET":
+        start_date, end_date = "", ""
+
+        try:
+            start_date = datetime.strptime(period, "%Y-%m").date()
+            end_date = start_date.replace(
+                day=calendar.monthrange(start_date.year, start_date.month)[1]
+            )
+        except ValueError:
+            return write_json_response(400, 'Invalid period')
+
+        cur_month_income = Transaction.objects.filter(
+            actor=req.user,
+            type=TransactionType.INCOME,
+            done_on__gte=start_date,
+            done_on__lte=end_date,
+        ).aggregate(income=Sum('amount'))
+
+        cur_month_outcome = Transaction.objects.filter(
+            actor=req.user,
+            type=TransactionType.OUTCOME,
+            done_on__gte=start_date,
+            done_on__lte=end_date,
+        ).aggregate(outcome=Sum('amount'))
+
+        report = dict()
+        report.update(cur_month_income)
+        report.update(cur_month_outcome)
+
+        if report["income"] is None:
+            report["income"] = 0
+        if report["outcome"] is None:
+            report["outcome"] = 0
+
+        report['net_income'] = report['income'] - report['outcome']
+        report['period'] = start_date.strftime("%m/%Y")
+
+        return write_json_response(200, report)
 
     return write_json_response(405, 'Method not allowed')
 
