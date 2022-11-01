@@ -44,11 +44,28 @@ def wallet_detail_page(req: HttpRequest, id: int) -> HttpResponse:
 @login_required(login_url='/authentication/login')
 def fetch_transactions(req: HttpRequest) -> HttpResponse:
     if req.method == "GET":
-        transactions = list(
-            Transaction.objects.filter(actor=req.user)
-            .order_by('-done_on', '-id')
-            .values()
-        )
+        wallet_id = req.GET.get('from-wallet', 'all')
+
+        transactions = []
+
+        if wallet_id == 'all':
+            transactions = list(
+                Transaction.objects.filter(actor=req.user)
+                .order_by('-done_on', '-id')
+                .values()
+            )
+        else:
+            wallet: Wallet | None = Wallet.objects.filter(
+                owner=req.user, pk=wallet_id
+            ).first()
+            if wallet is None:
+                return write_json_response(404, 'Wallet not found')
+
+            transactions = list(
+                Transaction.objects.filter(actor=req.user, wallet=wallet)
+                .order_by('-done_on', '-id')
+                .values()
+            )
 
         key_fn = lambda trx: trx['done_on']
         transactions_map_by_date = itertools.groupby(transactions, key_fn)
