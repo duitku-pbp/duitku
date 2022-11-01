@@ -131,6 +131,15 @@ def wallet_detail(req: HttpRequest, id: int) -> HttpResponse:
 
         return redirect('wallet:wallet-detail', id=id)
 
+    elif req.method == "DELETE":
+        wallet: Wallet | None = Wallet.objects.filter(owner=req.user, pk=id).first()
+        if wallet is None:
+            return write_json_response(404, 'Wallet not found')
+
+        wallet.delete()
+
+        return redirect('wallet:index')
+
     return write_json_response(405, 'Method not allowed')
 
 
