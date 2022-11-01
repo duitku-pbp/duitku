@@ -105,6 +105,29 @@ a {
   flex-direction: column;
 }
 
+.wallet__transaction-head {
+  min-width: 280px;
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  background-color: white;
+  z-index: 999;
+  padding-top: 20px;
+}
+
+.wallet__transaction-balance {
+  font-size: 1.25rem;
+}
+
+.wallet__transaction-total {
+  font-size: 1.5rem;
+}
+
 .wallet__transaction-date-group {
   width: 90%;
   display: flex;
@@ -112,6 +135,10 @@ a {
   align-items: center;
   flex-direction: column;
   margin: 1rem 0;
+}
+
+.wallet__transaction-date-group:first-child {
+  margin-top: 240px;
 }
 
 .wallet__transaction-date {
