@@ -30,5 +30,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (route === '/wallet/') {
     await renderWallets()
   }
+
+  if (route === '/wallet/transaction/') {
+    await renderTransactions()
+  }
 })
 

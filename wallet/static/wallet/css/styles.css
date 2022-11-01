@@ -95,7 +95,7 @@ a {
   margin-bottom: 1rem;
 }
 
-#wallet__wallets {
+#wallet__wallets, #wallet__transactions {
   min-width: 280px;
   width: 100%;
   max-width: 768px;
@@ -105,33 +105,33 @@ a {
   flex-direction: column;
 }
 
-.wallet__wallet {
+.wallet__wallet, .wallet__transaction {
   width: 90%;
   padding: 0.25rem 1rem;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
 
-.wallet__wallet:nth-child(3) {
+.wallet__wallet:nth-child(3), .wallet__transaction:first-child {
   border-radius: 10px 10px 0 0;
   border: 1px solid black;
   margin-bottom: 0;
 }
 
-.wallet__wallet:last-child {
+.wallet__wallet:last-child, .wallet__transaction:last-child {
   border-radius: 0 0 10px 10px;
   border: 1px solid black;
   margin-top: 0;
 }
 
-.wallet__wallet-name {
+.wallet__wallet-name, .wallet__transaction-desc {
   font-size: 1.25rem;
   font-style: bold;
   margin-top: 0.5rem;
   margin-bottom: 0;
 }
 
-.wallet__wallet-text {
+.wallet__wallet-text, .wallet__transaction-text {
   font-size: 1rem;
   margin-top: 0;
   margin-bottom: 0.5rem;

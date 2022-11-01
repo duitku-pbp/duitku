@@ -83,6 +83,18 @@ const deleteWallet = async (event) => {
   window.location.assign(res.url)
 }
 
+const renderTransactions = async () => {
+  const res = await fetch("/wallet/api/transaction/")
+  const transactions = await res.json()
+  const totalBalance = transactions.reduce((total, transaction) => total + transaction.amount, 0)
+
+  /* document.getElementsByClassName("wallet__transactions-total")[0].textContent = `Total: Rp. ${totalBalance}` */
+
+  transactions.forEach(transaction => {
+    document.getElementById("wallet__transactions").innerHTML += transactionCard(transaction)
+  });
+}
+
 const createTransaction = async (event) => {
   event.preventDefault()
 
