@@ -22,11 +22,14 @@ const transactionsDateGroup = (date) => {
 `
 }
 
-const transactionCard = (transaction) => `
+const transactionCard = (transaction, view='all') => `
   <div class="wallet__transaction">
     <p class="wallet__transaction-desc">
       <a href="/wallet/transaction/${transaction.id}">${transaction.description}</a>
     </p>
+    ${view === 'all' ? `
+    <p class="wallet__transaction-text">${transaction.wallet.name}</p>
+    `: ""} 
     <p class="wallet__transaction-text" style="color: ${transaction.type === 'INCOME' ? "green" : "red"};">
       Rp. ${transaction.type === "INCOME" ? "+" : "-"}${transaction.amount}
     </p>

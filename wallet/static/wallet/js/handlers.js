@@ -112,7 +112,7 @@ const renderTransactions = async (wallet="all") => {
     const trxs = transaction["transactions"]
 
     trxs.forEach((trx) => {
-      document.getElementById("wallet__transaction-" + transaction["date"]).innerHTML += transactionCard(trx)
+      document.getElementById("wallet__transaction-" + transaction["date"]).innerHTML += transactionCard(trx, wallet)
     })
   });
 }
