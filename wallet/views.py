@@ -186,6 +186,7 @@ def create_transaction(req: HttpRequest) -> HttpResponse:
             amount=data["amount"],
             type=data["type"],
             done_on=data["done-on"],
+            description=data["description"],
             actor=req.user,
         )
 
