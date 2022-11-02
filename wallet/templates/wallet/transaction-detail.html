@@ -1,0 +1,71 @@
+{% extends 'wallet/base.html' %}
+
+{% block walletcontent %}
+<div class="modal fade" id="confirmDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Delete Transaction</h1>
+        <button id="closeConfirmDeleteModal" type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="confirmDeleteForm" method="post" onsubmit="deleteTransaction(event)"
+          style="min-width: 280px; width: 100%; max-width: 480px;">
+          <input type="hidden" name="transaction-id" id="transaction-id" value="{{ transaction.id }}">
+          <p>Are you sure you would like to delete this transaction?</p>
+        </form>
+      </div>
+      <div class="modal-footer wallet__form-btns">
+        <button type="button" class="btn btn-secondary wallet__modal-form-btns-child"
+          data-bs-dismiss="modal">No</button>
+        <button type="submit" form="confirmDeleteForm"
+          class="btn btn-primary wallet__modal-form-btns-child">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="wallet__transaction-detail" class="form wallet__center" method="POST" onsubmit="updateTransaction(event)">
+  <h1 class="wallet__form-header">Transaction Detail</h1>
+
+  <input type="hidden" value="{{ transaction.id }}" name="transaction-id">
+
+  <label for="description">Description</label>
+  <input maxlength="50" minlength="1" type="text" id="description" name="description" class="wallet__form-input"
+    placeholder="Lunch" required disabled value="{{ transaction.description }}">
+
+  <label for="amount">Amount (Rp.)</label>
+  <input min="1" step="1" type="number" id="amount" name="amount" class="wallet__form-input" placeholder="0" required
+    disabled value="{{ transaction.amount }}">
+
+  <label for="done-on">Done on</label>
+  <input type="date" id="done-on" name="done-on" class="wallet__form-input" required disabled
+    value="{{ transaction.done_on }}">
+
+  <label for="type">Type</label>
+  <select id="type" name="type" class="wallet__form-input" required disabled>
+    <option value="INCOME" {% if transaction.type == "INCOME" %} selected {% endif %}>Income</option>
+    <option value="OUTCOME" {% if transaction.type == "OUTCOME" %} selected {% endif %}>Outcome</option>
+  </select>
+
+  <label for="wallet">Wallet</label>
+  <select id="wallet" name="wallet" class="wallet__form-input" required disabled>
+    <option value="{{ transaction.wallet.id }}">{{ transaction.wallet.name }} ({{ transaction.wallet.balance }})
+    </option>
+  </select>
+
+  <div id="wallet__detail-edit-btns" class="wallet__form-btns" hidden>
+    <button class="btn btn-danger wallet__form-btns-child" type="button"
+      onclick="editTransactionDetailForm(false)">Cancel</button>
+    <button class="btn btn-primary wallet__form-btns-child" type="submit">Update</button>
+  </div>
+
+  <div id="wallet__detail-option-btns" class="wallet__form-btns">
+    <button data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" class="btn btn-danger wallet__form-btns-child"
+      type="button">Delete</button>
+    <button class="btn btn-primary wallet__form-btns-child" type="button"
+      onclick="editTransactionDetailForm(true)">Edit</button>
+  </div>
+</form>
+{% endblock walletcontent %}

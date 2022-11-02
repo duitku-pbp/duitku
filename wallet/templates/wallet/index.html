@@ -1,0 +1,30 @@
+{% extends 'wallet/base.html' %}
+
+{% block walletcontent %}
+<div id="wallet__report" class="wallet__report">
+  <h1 class="wallet__wallets-header">Report</h1>
+  <div class="wallet__report-card">
+    <select onchange="reportPeriodOnChange();" class="wallet__report-month wallet__form-input" id="report-month"
+      name="report-month">
+    </select>
+    <div class="wallet__report-income-outcome">
+      <div class="wallet__report-income">
+        <p class="wallet__report-amount-title">Income</p>
+        <p id="report-income" class="wallet__report-amount">0</p>
+      </div>
+      <div class="wallet__report-outcome">
+        <p class="wallet__report-amount-title">Outcome</p>
+        <p id="report-outcome" class="wallet__report-amount">0</p>
+      </div>
+    </div>
+    <div class="wallet__report-net-income">
+      <p class="wallet__report-amount-title">Net Income</p>
+      <p id="report-net-income" class="wallet__report-amount">0</p>
+    </div>
+  </div>
+</div>
+<div id="wallet__wallets" class="wallet__display-wallets">
+  <h1 class="wallet__wallets-header">My Wallets</h1>
+  <p class="wallet__wallets-total-balance">Total: Rp. 0</p>
+</div>
+{% endblock walletcontent %}
