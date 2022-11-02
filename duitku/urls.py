@@ -21,4 +21,5 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('blog/', include('blog.urls')),
     path('', include('landing.urls')),
+    path('FinanceNews/', include('FinanceNews.urls')),
 ]
