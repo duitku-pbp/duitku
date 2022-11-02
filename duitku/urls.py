@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('landing.urls')),
     path('FinanceNews/', include('FinanceNews.urls')),
     path('donasi/', include('donasi.urls')),
+    path('investasiku/', include('investasiku.urls')),
 ]
