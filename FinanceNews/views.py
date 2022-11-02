@@ -1,4 +1,3 @@
-from turtle import title
 from django.shortcuts import render
 #from newsapi import NewsApiClient
 import requests
