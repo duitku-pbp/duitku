@@ -1,8 +1,11 @@
-{% load static %}
+{% extends 'base.html' %}
+
 <!doctype html>
 <html lang="en">
 
   <head>
+    {% block content %} {% load static %} {% load humanize %}
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
@@ -82,3 +85,4 @@
 
 </body>
 </html>
+{% endblock content %}
