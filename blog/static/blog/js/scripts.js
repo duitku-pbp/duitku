@@ -1,5 +1,5 @@
 const blog_entry = (post) => `<li style="list-style: none">
-			<a href="/blog/detail/${post.id}/">
+				<a href="/blog/${post.id}/">
 				<div class="content" style="position: relative">
 					<div id="upvote" style="position: absolute; bottom: 20px; right: 20px">
 						<div id="upvote-counter">${post.upvotes}</div>
