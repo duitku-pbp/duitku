@@ -66,6 +66,71 @@
     },
     {
         "model": "investasiku.Investment",
+        "pk":6,
+        "fields": {
+            "investment_name" : "Batavia Technology Sharia Equity USD",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 1.92,
+            "drawdown_1Y" : -37.20,
+            "aum" : "36.04M",
+            "expense_ratio" : 0.54,
+            "min_buy" : 1000000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":7,
+        "fields": {
+            "investment_name" : "BNP Paribas Prima USD Kelas RK1",
+            "investment_type" : "Obligasi",
+            "cagr_1Y" : -13.48,
+            "drawdown_1Y" : -15.27,
+            "aum" : "37.08M",
+            "expense_ratio" : 1.43,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":8,
+        "fields": {
+            "investment_name" : "Danareksa Indeks Syariah",
+            "investment_type" : "Saham",
+            "cagr_1Y" : 9.90,
+            "drawdown_1Y" : -9.09,
+            "aum" : "41.61B",
+            "expense_ratio" : 1.01,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":9,
+        "fields": {
+            "investment_name" : "Majoris Saham Alokasi Dinamik Indonesia",
+            "investment_type" : "Saham",
+            "cagr_1Y" : -1.52,
+            "drawdown_1Y" : -0.10,
+            "aum" : "34.15B",
+            "expense_ratio" : 2.02,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
+        "pk":10,
+        "fields": {
+            "investment_name" : "Mandiri Pasar Uang Syariah Ekstra",
+            "investment_type" : "Pasar Uang",
+            "cagr_1Y" : 1.78,
+            "drawdown_1Y" : -0.01,
+            "aum" : "2.05T",
+            "expense_ratio" : 1.32,
+            "min_buy" : 100000
+        }
+    },
+    {
+        "model": "investasiku.Investment",
         "pk":11,
         "fields": {
             "investment_name" : "Manulife Obligasi Unggulan Kelas A",

@@ -5,7 +5,7 @@
     <style>
         body,
         html {
-            background-color: white;
+          background-color: white;
             color: black;
             padding: 0;
             margin: 0;
@@ -59,6 +59,12 @@
         .text-align-right {
           text-align: right;
         }
+        .color-positive {
+          color: green;
+        }
+        .color-negative {
+          color: red;
+        }
     </style>
     <script>
       let current_pk = null
@@ -77,6 +83,7 @@
         async function refreshInvestmentList(filter) {
           if(filter==null) filter = '{{ filter }}'
           const investments = await getInvestmentList(filter)
+          let color = ""
           let htmlString = `<div>
             <div class="card w-75">
               <div class="card-body">
@@ -89,6 +96,12 @@
                 </div>
             </div>`
           investments.forEach((item) => {
+            if (item.fields.cagr_1Y < 0) {
+              color = "color-negative"
+            }
+            else {
+              color = "color-positive"
+            }
             htmlString += `\n
             <div class="card w-75">
               <div class="card-body">
@@ -106,7 +119,7 @@
                           <tr>
                               <td>
                                   <h6 class="header-color">1 Year Return</h6>
-                                  <h6 class="card-text">${item.fields.cagr_1Y}%</h6>
+                                  <h6 class="card-text ${color}">${item.fields.cagr_1Y}%</h6>
                               </td>
                               <td>
                                   <h6 class="header-color">Total AUM</h6>
@@ -120,7 +133,7 @@
                       </table>
                       </div>
                     </div>
-                  <button type='button' onclick="viewReksaDana('${item.pk} ')" class='btn btn-success' style="text-align : right;">Beli Investasi</button>
+                  <button type='button' onclick="viewReksaDana('${item.pk} ')" class='btn btn-success' style="text-align : right;">Lihat Reksa Dana</button>
               </div>
           </div>
                 `              
@@ -131,9 +144,23 @@
         }
         async function viewReksaDana(pk) {
             const investments = await getInvestmentList("All")
+            let color_cagr = ""
+            let color_drawdown = ""
             let htmlString = `<div >`
                 investments.forEach((item) => {
                 if (item.pk == pk){
+                  if (item.fields.cagr_1Y < 0) {
+                    color_cagr = "color-negative"
+                  }
+                  else {
+                    color_cagr = "color-positive"
+                  }
+                  if (item.fields.drawdown_1Y < 0) {
+                    color_drawdown = "color-negative"
+                  }
+                  else {
+                    color_drawdown = "color-positive"
+                  }
                     htmlString += `\n
                     <div class="card w-75 ">
                       <div class="card-body">
@@ -147,11 +174,11 @@
                               </td>
                               <td>
                                   <h6 class="header-color">CAGR 1Y</h6>
-                                  <p class="card-text">${item.fields.cagr_1Y}%</p>
+                                  <p class="card-text ${color_cagr}">${item.fields.cagr_1Y}%</p>
                               </td>
                               <td>
                                   <h6 class="header-color">Drawdown 1Y</h6>
-                                  <p class="card-text">${item.fields.drawdown_1Y}%</p>
+                                  <p class="card-text ${color_drawdown}">${item.fields.drawdown_1Y}%</p>
                               </td>
                           </tr>
                           <tr>
@@ -169,7 +196,9 @@
                               </td>
                           </tr>
                         </table>  
+                        {% if request.user.is_authenticated %}
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createInvestModal" >Beli Investasi</button>
+                        {% endif %}
                       </div>
                     </div>
                     `        

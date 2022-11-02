@@ -11,7 +11,11 @@
             margin: 0;
             position: relative;
             font-family: "Roboto", sans-serif;
-            
+        }
+        .card-inner {
+            background-color: rgba(255, 255, 255, .15);  
+            backdrop-filter: blur(10px);
+            padding: 20px;
         }
         #title {
             padding: 10px;
@@ -75,10 +79,22 @@
             left: 0; 
                 
             /* Preserve aspet ratio */
-            height: 140%;
+            height: 120%;
         }
         #portofolio-identity {
             text-align: left;
+        }
+        .headings {
+            font-stretch: expanded;
+            color: #2eb68d;
+            font-family: "Roboto", sans-serif;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 20px 20px 20px;
+        }
+        .subheadings {
+            font-weight: bolder;
+            color: #65bea4;
         }
     </style>
     <script>
@@ -107,7 +123,7 @@
                     logo_name = "btn-saham"
                 }
             htmlString += `\n
-            <div class="card w-75 align-center">
+            <div class="card w-75 align-center card-inner">
                 <div class="card-body">
                     <table>
                         <tr>
@@ -115,9 +131,10 @@
                                 <button class="button ${logo_name}"></button>
                             </td>
                             <td id="portofolio-identity">
-                                <h5 class="card-title">${investment_name}</h5>
+                                <h5 class="card-title subheadings">${investment_name}</h5>
                                 <h6 class="card-title">${investment_type}</h5>
                                 <h6 class="card-title">Nilai Portofolio Rp${item.fields.bought_value}</h5>
+                                
                             </td>
                         </tr>
                     </table>
@@ -143,7 +160,7 @@
     <img class="bg" src="{% static '/landing/images/landing.png' %}" alt="" style="pointer-events: none;">
     <div class="card w-75 align-center">
         <div class="card-body">
-            <h3 id="title">Pilihan Reksadana Untukmu</h3>
+            <h3 id="title" class="headings">Pilihan Reksadana Untukmu</h3>
             <div class="row">
                 <div class="col-sm">
                     <a href="{% url 'investasiku:show_investment_pasaruang' %}"><button class="button btn-pasar-uang"></button></a>
@@ -160,16 +177,17 @@
             </div>
         </div>
     </div>
+    {% if request.user.is_authenticated %}
     <div class="card w-75 align-center">
         <div class="card-body">
-            <h3 id="title">Portofolio kamu</h3>
+            <h3 id="title" class="headings">Portofolio kamu</h3>
             <div class="card w-75 portofolio align-center">
                 <div class="card-body">
-                    <h5>Nilai Portofolio</h5>
+                    <h5 class="subheadings">Nilai Portofolio</h5>
                     <h6 id="nilai-portofolio"></h6>
                     <div class="row">
                         <div class="col-sm">
-                            <h5>Nilai Keuntungan</h5>
+                            <h5 class="subheadings">Nilai Keuntungan</h5>
                             <h6 id="nilai-keuntungan"></h6>
                         </div>
                     </div>
@@ -177,9 +195,12 @@
             </div>
             <img id="empty-portofolio" class="img-fluid" src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1666976782~exp=1666977382~hmac=5ed3a8adad86ae053b4ea2fad9a25096510a06ade828bdce45a0b0079397078d" alt="Responsive image" style="width: 30%">
             <h2 id="empty-portofolio-message">Portofolio kamu masih kosong...</h2>
+            <h3 id="title" class="headings">Daftar Reksa Dana Kamu</h3>
             <div id="portofolio_list"></div>
         </div>
     </div>
+    {% endif %}
+
 </body>
 
 {% endblock content %}

@@ -17,6 +17,6 @@ urlpatterns = [
     path('json/<int:id>/', show_json_id, name='show_json_id'),
     path('json/portofolio/', show_portofolio, name='show_portofolio'),
     path('add_portofolio/', add_portofolio, name='add_portofolio'),
-    path('purge/', purge_portofolio, name='purge_portofolio'),
+    # path('purge/', purge_portofolio, name='purge_portofolio'),
 
 ]

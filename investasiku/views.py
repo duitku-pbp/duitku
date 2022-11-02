@@ -31,10 +31,11 @@ def show_investment_saham(request):
     }
     return render(request, "investment_list.html", context)
 
-# @login_required(login_url='/authentication/login/')
+@login_required(login_url='/authentication/login/')
 def show_app(request):
     return render(request, "app.html")
 
+@login_required(login_url='/authentication/login/')
 def add_portofolio(request):
     if request.method == 'POST':
         pk_item = request.POST.get("pk")
@@ -52,9 +53,10 @@ def add_portofolio(request):
         return HttpResponse(b"CREATED", status=201)
     return HttpResponseNotFound()
 
-def purge_portofolio(request):
-    Portofolio.objects.all().delete()
-    return show_app(request)
+# def purge_portofolio(request):
+#     Portofolio.objects.all().delete()
+#     return show_app(request)
+
 
 def show_json_all(request):
     data = Investment.objects.all()
@@ -72,7 +74,7 @@ def show_json_id(request, id):
     data = Investment.objects.get(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+@login_required(login_url='/authentication/login/')
 def show_portofolio(request):
     data = Portofolio.objects.filter(user = request.user)
-
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
