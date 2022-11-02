@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block content %} {% load static %} {% load humanize %}
+    <style>
+        body,
+        html {
+            background-color: white;
+            color: black;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            font-family: "Roboto", sans-serif;
+        }
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+            text-align:left;
+        }
+        .bg {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+                
+            /* Preserve aspet ratio */
+            height: 120%;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        h2 {
+            font-stretch: expanded;
+            color: #2eb68d;
+            font-family: "Roboto", sans-serif;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 20px 20px 20px;
+            /* border: 2px solid black; */
+        }
+        .detail {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .align-center {
+          text-align: center;
+        }
+
+        .investment-name {
+          font-weight: bolder;
+          color: #33c297;
+        }
+
+        .header-color {
+          font-weight: bolder;
+          color: #65bea4;
+        }
+        .text-align-right {
+          text-align: right;
+        }
+    </style>
+    <script>
+      let current_pk = null
+        async function getInvestmentList(filter) {
+          if (filter == "All")
+          return fetch("{% url 'investasiku:show_json_all' %}").then((res) => res.json());
+          else if (filter == "Pasar Uang")
+          return fetch("{% url 'investasiku:show_json_pasaruang' %}").then((res) => res.json());
+          else if (filter == "Obligasi")
+          return fetch("{% url 'investasiku:show_json_obligasi' %}").then((res) => res.json());
+          else if (filter == "Saham")
+          return fetch("{% url 'investasiku:show_json_saham' %}").then((res) => res.json());
+
+        }
+        
+        async function refreshInvestmentList(filter) {
+          if(filter==null) filter = '{{ filter }}'
+          const investments = await getInvestmentList(filter)
+          let htmlString = `<div>
+            <div class="card w-75">
+              <div class="card-body">
+                    <h2> Daftar Reksa Dana Untukmu</h2>
+                    <p>Filter</p>
+                    <button type='button' onclick="refreshInvestmentList('All')" class='btn btn-outline-success btn-sm'>All</button>
+                    <button type='button' onclick="refreshInvestmentList('Pasar Uang')" class='btn btn-outline-success btn-sm'>Pasar Uang</button>
+                    <button type='button' onclick="refreshInvestmentList('Obligasi')" class='btn btn-outline-success btn-sm'>Obligasi</button>
+                    <button type='button' onclick="refreshInvestmentList('Saham')" class='btn btn-outline-success btn-sm'>Saham</button>
+                </div>
+            </div>`
+          investments.forEach((item) => {
+            htmlString += `\n
+            <div class="card w-75">
+              <div class="card-body">
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-sm">
+                          <div>
+                              <h4 class="card-title investment-name">${item.fields.investment_name}</h5>
+                              <h6 class="card-text">${item.fields.investment_type}</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row align-center">
+                      <table class="table">
+                          <tr>
+                              <td>
+                                  <h6 class="header-color">1 Year Return</h6>
+                                  <h6 class="card-text">${item.fields.cagr_1Y}%</h6>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">Total AUM</h6>
+                                  <h6 class="card-text">${item.fields.aum}</h6>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">Expense Ratio</h6>
+                                  <h6 class="card-text">${item.fields.expense_ratio}%</h6>
+                              </td>
+                          </tr>
+                      </table>
+                      </div>
+                    </div>
+                  <button type='button' onclick="viewReksaDana('${item.pk} ')" class='btn btn-success' style="text-align : right;">Beli Investasi</button>
+              </div>
+          </div>
+                `              
+            
+          })
+          htmlString += "</div>"
+          document.getElementById("content").innerHTML = htmlString
+        }
+        async function viewReksaDana(pk) {
+            const investments = await getInvestmentList("All")
+            let htmlString = `<div >`
+                investments.forEach((item) => {
+                if (item.pk == pk){
+                    htmlString += `\n
+                    <div class="card w-75 ">
+                      <div class="card-body">
+                        <button type='button' class='btn btn-outline-success' onclick="refreshInvestmentList(null)">Back</button>
+                        <h3 class="card-title align-center investment-name" id="reksadana-title">${item.fields.investment_name}</h5>
+                        <table class="table align-center">
+                          <tr>
+                              <td>
+                                  <h6 class="header-color">Jenis Produk</h6>
+                                  <h6 class="card-text">${item.fields.investment_type}</h6>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">CAGR 1Y</h6>
+                                  <p class="card-text">${item.fields.cagr_1Y}%</p>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">Drawdown 1Y</h6>
+                                  <p class="card-text">${item.fields.drawdown_1Y}%</p>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <h6 class="header-color">AUM</h6>
+                                  <p class="card-text">${item.fields.aum}</p>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">Expense Ratio</h6>
+                                  <p class="card-text">${item.fields.expense_ratio}%</p>
+                              </td>
+                              <td>
+                                  <h6 class="header-color">Minimum Buy Value</h6>
+                                  <p class="card-text">${item.fields.min_buy}</p>
+                              </td>
+                          </tr>
+                        </table>  
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createInvestModal" >Beli Investasi</button>
+                      </div>
+                    </div>
+                    `        
+                    document.getElementById("min-buy").innerText = item.fields.min_buy      
+                }
+              })
+            htmlString += "</div>"
+          document.getElementById("content").innerHTML = htmlString
+          current_pk = pk
+          document.getElementById("pk").value = current_pk 
+        }
+        
+        refreshInvestmentList(null)
+        </script>
+</head>
+<body>
+    <img class="bg" src="{% static '/landing/images/landing.png' %}" alt="" style="pointer-events: none;">
+    <div id="content">
+    </div>
+    <div class="modal fade" id="createInvestModal" tabindex="-1" aria-labelledby="investModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="taskInvestLabel">Investasi</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                  <div class="card-body">
+                    <h3 class="text-center"> Investasi Sekarang </h3>
+                    <table>
+                      <tr>
+                        <td>
+                          <p>Minimal Pembelian </p>
+                        </td>
+                        <td>
+                          <p id="min-buy"></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p>Biaya Pembelian </p>
+                        </td>
+                        <td ><p>Gratis</p></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p>Biaya Penjualan </p>
+                        </td>
+                        <td><p>Gratis</p></td>
+                      </tr>
+                    </table>
+                    
+                      <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <form method="POST" action="">
+                        <table>
+                          <tr>
+                            <td>Jumlah Pembelian:</td>
+                            <td>
+                              <input
+                              type="number"
+                              name="jumlah_beli"
+                              placeholder="jumlah pembelian"
+                              id="jumlah_beli"
+                              class="form-control"
+                              value="0"
+                              />
+                            </td>
+                            <td>
+                              <input
+                              type="hidden"
+                              name="pk"
+                              placeholder="pk"
+                              id="pk"
+                              class="form-control"
+                              value=""
+                              />
+                            </td>
+                          </tr>
+                        </table>
+                      </form>
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="submit_btn" class="btn btn-primary" type="submit"  value="Submit" data-bs-dismiss="modal">Beli</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        function addPortofolio() {
+          if (document.getElementById("jumlah_beli").value < document.getElementById("min-buy").innerText){
+            alert("Jumlah pembelian dibawah minimum. Silahkan isi dengan jumlah diatas minimum.")
+          }
+          else {
+            alert("Pembelian Berhasil, kembali ke halaman utama")
+            fetch("{% url 'investasiku:add_portofolio' %}", {
+              method: "POST",
+              body: new FormData(document.querySelector('#form'))
+            }).then(window.location.replace("{% url 'investasiku:show_app' %}"))
+          }
+          return false
+        }
+        document.getElementById("submit_btn").onclick = addPortofolio
+      </script>
+</body>
+
+{% endblock content %}

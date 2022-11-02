@@ -32,6 +32,7 @@
       {% if request.user.is_superuser %}
       <a class="active" href="{% url 'blog:add_post' %}">+ New Post</a>
       {% endif %}
+      <a href="{% url 'investasiku:show_landing_page' %}">Investasiku</a>
     </div>
     <div style="display: flex; align-items: center; padding: 0">
       {% if not request.user.is_authenticated %}

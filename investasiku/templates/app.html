@@ -2,8 +2,6 @@
 
 <head>
     {% block content %} {% load static %} {% load humanize %}
-	<link rel="stylesheet" href="static/style.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         body,
         html {
@@ -15,10 +13,14 @@
             font-family: "Roboto", sans-serif;
             
         }
-        .card {
+        #title {
+            padding: 10px;
+        }
+        .align-center {
             margin: 0 auto; /* Added */
             float: none; /* Added */
             margin-bottom: 10px; /* Added */
+            margin-top: 10px;
             text-align:center;
         }
         .portofolio {
@@ -32,76 +34,150 @@
             background-position: top;
             background-repeat: no-repeat;
             background-size: contain;
+            pointer-events: none;
+
         }
         .btn-obligasi {
             background-image: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/certificate-icon.png);
             background-position: top;
             background-repeat: no-repeat;
             background-size: contain;
+            pointer-events: none;
         }
         .btn-saham {
             background-image: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/dollar-stats-icon.png);
             background-position: top;
             background-repeat: no-repeat;
             background-size: contain;
+            pointer-events: none;
+
         }
         .button {
             background-color: rgba(255, 255, 255, 0); /* Green */
             border: none;
             color: white;
-            padding: 18px 18px;
+            padding: 30px 50px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-            margin: 4px 2px;
+            margin: 4px 4px;
             transition-duration: 0.4s;
             cursor: pointer;
             border-radius: 12px;
         }
+        h2 {
+            color: #2eb68d;;
+        }
+        .bg {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+                
+            /* Preserve aspet ratio */
+            height: 140%;
+        }
+        #portofolio-identity {
+            text-align: left;
+        }
     </style>
+    <script>
+        async function refreshPortofolio() {
+            const portofolio = await fetch("{% url 'investasiku:show_portofolio' %}").then((res) => res.json());
+            const investment = await fetch("{% url 'investasiku:show_json_all' %}").then((res) => res.json());
+            let htmlString = ``
+            let investment_name = ""
+            let investment_type = ""
+            let logo_name = ""
+            let nilai_portofolio = 0
+            portofolio.forEach((item) => {
+                investment.forEach((company) => {
+                    if(company.pk == item.fields.investment){
+                        investment_name = company.fields.investment_name
+                        investment_type = company.fields.investment_type
+                    }
+                })
+                if (investment_type == "Pasar Uang"){
+                    logo_name = "btn-pasar-uang"
+                }
+                else if (investment_type == "Obligasi"){
+                    logo_name = "btn-obligasi"
+                }
+                else if (investment_type == "Saham"){
+                    logo_name = "btn-saham"
+                }
+            htmlString += `\n
+            <div class="card w-75 align-center">
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="button ${logo_name}"></button>
+                            </td>
+                            <td id="portofolio-identity">
+                                <h5 class="card-title">${investment_name}</h5>
+                                <h6 class="card-title">${investment_type}</h5>
+                                <h6 class="card-title">Nilai Portofolio Rp${item.fields.bought_value}</h5>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+                `              
+            nilai_portofolio+=item.fields.bought_value
+          })
+          document.getElementById("portofolio_list").innerHTML = htmlString
+          if (portofolio != null) {
+            document.getElementById("empty-portofolio").style.display =  "none";
+            document.getElementById("empty-portofolio-message").style.display =  "none";
+          }
+          document.getElementById("nilai-portofolio").innerText = "Rp"+nilai_portofolio
+          document.getElementById("nilai-keuntungan").innerText = "Rp"+0
+          
+        }
+        refreshPortofolio()
+    </script>
 </head>
 
 <body>
-    <div class="card w-75">
+    <img class="bg" src="{% static '/landing/images/landing.png' %}" alt="" style="pointer-events: none;">
+    <div class="card w-75 align-center">
         <div class="card-body">
-            <h3>Pilihan Reksadana Untukmu</h3>
+            <h3 id="title">Pilihan Reksadana Untukmu</h3>
             <div class="row">
                 <div class="col-sm">
-                    <a href="{% url 'investasiku:show_pasaruang' %}"><button class="button btn-pasar-uang"></button></a>
+                    <a href="{% url 'investasiku:show_investment_pasaruang' %}"><button class="button btn-pasar-uang"></button></a>
                     <h6>Pasar Uang</h6>
                 </div>
                 <div class="col-sm">
-                    <a href="{% url 'investasiku:show_obligasi' %}"><button class="button btn-obligasi"></button></a>
+                    <a href="{% url 'investasiku:show_investment_obligasi' %}"><button class="button btn-obligasi"></button></a>
                     <h6>Obligasi</h6>
                 </div>
                 <div class="col-sm">
-                    <a href="{% url 'investasiku:show_saham' %}"><button class="button btn-saham"></button></a>
+                    <a href="{% url 'investasiku:show_investment_saham' %}"><button class="button btn-saham"></button></a>
                     <h6>Saham</h6>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card w-75">
+    <div class="card w-75 align-center">
         <div class="card-body">
-            <h3>Portofolio kamu</h3>
-        </div>
-        <div class="card w-75 portofolio">
-            <div class="card-body">
-                <h5>Nilai Portofolio</h5>
-                <h6>Rp</h6>
-                <div class="row">
-                    <div class="col-sm">
-                        <h5>Nilai Keuntungan</h5>
-                        <h6>Rp</h6>
-                    </div>
-                    <div class="col-sm right">
-                        <h5>Imbal Hasil</h5>
-                        <h6>Rp</h6>
-
+            <h3 id="title">Portofolio kamu</h3>
+            <div class="card w-75 portofolio align-center">
+                <div class="card-body">
+                    <h5>Nilai Portofolio</h5>
+                    <h6 id="nilai-portofolio"></h6>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h5>Nilai Keuntungan</h5>
+                            <h6 id="nilai-keuntungan"></h6>
+                        </div>
                     </div>
                 </div>
             </div>
+            <img id="empty-portofolio" class="img-fluid" src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1666976782~exp=1666977382~hmac=5ed3a8adad86ae053b4ea2fad9a25096510a06ade828bdce45a0b0079397078d" alt="Responsive image" style="width: 30%">
+            <h2 id="empty-portofolio-message">Portofolio kamu masih kosong...</h2>
+            <div id="portofolio_list"></div>
         </div>
     </div>
 </body>
