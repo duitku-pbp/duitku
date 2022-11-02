@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>Financial News</title>
+{% endblock meta %}
+
 <!doctype html>
 <html lang="en">
 
@@ -34,9 +38,9 @@
         user-select: none;
       }
 
-      @media (min-width: 200px) {
+      @media (min-width: 450px) {
         .bd-placeholder-img-lg {
-          font-size: 5.0rem;
+          font-size: 2.0rem;
         }
       }
       body {
@@ -49,13 +53,13 @@
       <h1 style="font-family: 'Open Sans'; text-align: center;text-decoration-color: forestgreen ;">
         FINANCIAL NEWS UPDATE!
       </h1>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row row-cols-4 row-cols-sm-4 row-cols-md-3.5 g-3.5">
       {% for item in mylist %}
       <div class="card-body">
         <a href="{{item.longURL}}"><h4 class="card-text">{{item.title}}</h4> </a>
         <p class="card-text">{{item.description}}</p>
         <div
-          class="d-flex justify-content-between align-items-center"
+          class="flex-grow-1 ms-3"
         ></div>
       </div>
 
