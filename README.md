@@ -33,6 +33,7 @@ Duitku adalah aplikasi yang bertujuan untuk meningkatkan financial inclusion den
 - Blog - Andrew<br>
   Fitur ini akan menampilkan berbagai artikel informatif mengenai dunia keuangan untuk meningkatkan financial literacy masyarakat.
 - Donasi - Arya
+  Fitur ini berfungsi sebagai donasi tracker yang akan mempermudah user untuk merencanakan kegiatan donasi yang akan dilakukan, seperti tujuan dan nominal donasi.
 - Financial News - Cinthya
 - Investasi - Tristan
 

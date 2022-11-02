@@ -22,5 +22,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('wallet/', include('wallet.urls')),
     path('', include('landing.urls')),
+    path('donasi/', include('donasi.urls')),
     path('investasiku/', include('investasiku.urls')),
 ]

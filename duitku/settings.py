@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.humanize',
+    'donasi',
     'investasiku',
 ]
 

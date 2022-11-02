@@ -28,6 +28,7 @@
           <li><a class="dropdown-item" href="{% url 'wallet:create-transaction' %}">+ New Transaction</a></li>
         </ul>
       </div>
+      <a href="{% url 'donasi:show_ajax' %}">Donasi</a>
       <a href="{% url 'blog:index' %}">Blog</a>
       {% if request.user.is_superuser %}
       <a class="active" href="{% url 'blog:add_post' %}">+ New Post</a>
