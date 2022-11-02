@@ -1,11 +1,9 @@
-from sre_constants import IN
-from unicodedata import name
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
 from django.core import serializers
 from investasiku.models import Investment, Portofolio
-from wallet.models import Wallet, Transaction, TransactionType
+from wallet.models import Wallet
 # Create your views here.
 def show_landing_page(request):
     return render(request, "landing.html")
@@ -76,5 +74,5 @@ def show_json_id(request, id):
 
 def show_portofolio(request):
     data = Portofolio.objects.filter(user = request.user)
-    
+
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
