@@ -1,0 +1,256 @@
+a {
+	text-decoration: none;
+}
+
+#upvote {
+	display: flex;
+	gap: 20px;
+	justify-content: end;
+	align-items: center;
+}
+
+#upvote-counter {
+	font-size: 40px;
+	line-height: 50px;
+	display: inline-block;
+}
+
+#upvote-button {
+	background-color: black;
+}
+
+#heart {
+	width: 30px;
+	height: auto;
+}
+
+#comment-header {
+	padding: 20px;
+	text-align: center;
+}
+
+#comment-label {
+	float: left;
+	margin-right: 20px;
+}
+
+#logout-button {
+	float: right;
+}
+
+#login-button {
+	float: right;
+}
+
+#signup-button {
+	float: right;
+}
+
+.question-box {
+	width: 80%;
+	height: auto;
+	text-align: center;
+	background-color: #3bedb7;
+	color: #eeeeee;
+}
+
+.login-box {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	background-color: #3bedb7;
+	border-radius: 20px;
+}
+
+.login-warning {
+	text-align: center;
+}
+
+.recent-blog-header {
+	margin: 20px;
+	text-align: center;
+}
+
+.comment-editor-header {
+	text-align: center;
+	margin: 20px;
+}
+
+.upvote-button {
+	background-color: #3bedb7;
+	color: #eeeeee;
+	border: 0;
+	padding: 7px;
+	border-radius: 20px;
+}
+
+.upvote-button:hover {
+	background-color: black;
+}
+
+.post-comment-box {
+	padding: 20px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.new-post-box {
+	margin: 40px;
+	padding: 30px;
+	border: 2px solid white;
+	border-radius: 20px;
+	background-color: #3bedb7;
+	color: #eeeeee;
+}
+
+.user-comment-box div {
+	background-color: #3bedb7;
+	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 20px;
+	border-radius: 20px;
+}
+
+.user-comment-box div p {
+	background-color: black;
+	color: white;
+}
+
+.user-comment h2 {
+	text-align: right;
+	margin-right: 20px;
+}
+
+.user-comment p {
+	text-align: right;
+	margin-right: 40px;
+	letter-spacing: 2px;
+	white-space: pre-wrap;
+	padding: 30px;
+}
+
+.user-comment a {
+	margin: 10px;
+	padding-left: 10px;
+}
+
+.comment-box {
+	width: 100%;
+	height: 200px;
+}
+
+.detail-content {
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-top: 50px;
+}
+
+.detail-content h1 {
+	text-align: center;
+}
+
+.detail-content p {
+	text-align: justify;
+	letter-spacing: 2px;
+}
+
+.detail-content h3 {
+	text-align: right;
+}
+
+.post-box:hover {
+	opacity: 0.5;
+}
+
+.post-box a {
+	text-decoration: none;
+}
+
+.post-box div {
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.content {
+	background: #3bedb7;
+	color: black;
+	margin: auto;
+	width: 80%;
+	margin-bottom: 30px;
+	height: auto;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+.content:hover {
+	opacity: 0.5;
+}
+
+.content li {
+	list-style: none;
+}
+
+.content h1 {
+	color: #3a4750;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.logo {
+	width: 100px;
+	height: auto;
+	margin: 10px;
+}
+
+.social-box {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	padding: 10px;
+}
+
+.submit-form-button {
+	width: auto;
+	height: auto;
+	border: 2px solid #eeeeee;
+	border-radius: 20px;
+	padding: 5px;
+	background-color: #3bedb7;
+	color: #eeeeee;
+	font-size: 20px;
+	margin: auto;
+	display: block;
+}
+
+.submit-form-button:hover {
+	background-color: #3a4750;
+}
+
+#time {
+	margin-bottom: 10px;
+}
+
+#first-color {
+	background: black;
+}
+
+#second-color {
+	background: #3a4750;
+}
+
+#third-color {
+	background: #3bedb7;
+}
+
+#fourth-color {
+	background: #eeeeee;
+}

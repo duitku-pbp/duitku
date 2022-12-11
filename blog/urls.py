@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from . import endpoint_views
 
 app_name = "blog"
 
@@ -26,4 +27,22 @@ urlpatterns = [
         name="delete_comment",
     ),
     path("<int:post_id>/post_comment/", views.post_comment, name="post_comment"),
+    path("endpoints/get_posts/", endpoint_views.get_posts, name="endpoint_get_posts"),
+    path("endpoints/add_post/", endpoint_views.add_post, name="endpoint_add_post"),
+    path("endpoints/<int:post_id>/", endpoint_views.detail, name="endpoint_detail"),
+    path(
+        "endpoints/add_comment/<int:post_id>/",
+        endpoint_views.add_comment,
+        name="endpoints_add_comment",
+    ),
+    path(
+        "endpoints/delete_comment/<int:comment_id>/",
+        endpoint_views.delete_comment,
+        name="endpoint_delete_comment",
+    ),
+    path(
+        "endpoints/update_comment/<int:comment_id>/",
+        endpoint_views.update_comment,
+        name="endpoint_update_comment",
+    ),
 ]
