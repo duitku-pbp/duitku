@@ -55,7 +55,6 @@ def detail(request, post_id):
     )
 
 
-@login_required(login_url="/authentication/login")
 @csrf_exempt
 def add_comment(request, post_id):
     if not request.user:
@@ -72,7 +71,6 @@ def add_comment(request, post_id):
     raise Http404("Invalid request method")
 
 
-@login_required(login_url="/authentication/login")
 @csrf_exempt
 def update_comment(request, comment_id):
     if not request.user:
@@ -87,7 +85,6 @@ def update_comment(request, comment_id):
     raise Http404("Invalid request method")
 
 
-@login_required(login_url="/authentication/login")
 def delete_comment(request, comment_id):
     if not request.user:
         raise Http404("You must be logged in to post comments!")
