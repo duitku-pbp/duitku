@@ -71,7 +71,7 @@ def show_json_saham(request):
     data = Investment.objects.filter(investment_type="Saham")
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 def show_json_id(request, id):
-    data = Investment.objects.get(pk=id)
+    data = Investment.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 @login_required(login_url='/authentication/login/')
