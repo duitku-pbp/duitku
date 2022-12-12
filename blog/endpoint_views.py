@@ -1,7 +1,8 @@
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from blog.models import Post, Comment, Upvoter
+from blog.models import Post, Comment
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 def get_posts(request):
@@ -54,6 +55,7 @@ def detail(request, post_id):
     )
 
 
+@login_required(login_url="/authentication/login")
 @csrf_exempt
 def add_comment(request, post_id):
     if not request.user:
@@ -67,10 +69,10 @@ def add_comment(request, post_id):
             user=request.user.username,
             content=content,
         )
-        return HttpResponse()
     raise Http404("Invalid request method")
 
 
+@login_required(login_url="/authentication/login")
 @csrf_exempt
 def update_comment(request, comment_id):
     if not request.user:
@@ -85,6 +87,7 @@ def update_comment(request, comment_id):
     raise Http404("Invalid request method")
 
 
+@login_required(login_url="/authentication/login")
 def delete_comment(request, comment_id):
     if not request.user:
         raise Http404("You must be logged in to post comments!")
