@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from donasi.models import Donasi
 from donasi.forms import addNewDonasi
+import json
 
 @login_required(login_url='/authentication/login/')
 def show_ajax(request):
@@ -36,12 +37,17 @@ def show_json(request):
 
 def add_donasi_ajax(request):
     if request.method == 'POST':
-        name = request.POST.get("name")
-        amount = request.POST.get("amount")
-        target = request.POST.get("target")
-        date = request.POST.get("date")
 
-        new_donasiList = Donasi(user=request.user, name=name, amount=amount, target=target, date=date)
+        data = json.loads(request.body)
+
+        new_donasiList = Donasi(
+            user=request.user, 
+            name=data["name"], 
+            amount=data["amount"], 
+            target=data["target"], 
+            date=data["date"],
+            )
+
         new_donasiList.save()
 
         return HttpResponse(b"CREATED", status=201)
