@@ -10,8 +10,6 @@ class Investment(models.Model):
     aum = models.CharField(max_length = 64)
     expense_ratio = models.DecimalField(max_digits=6, decimal_places=2)
     min_buy = models.IntegerField()
-    def __str__():
-        return Investment.investment_name
 
 class Portofolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
