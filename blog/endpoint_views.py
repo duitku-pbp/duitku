@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from blog.models import Post, Comment, Upvoter
+from django.views.decorators.csrf import csrf_exempt
 
 
 def get_posts(request):
@@ -21,6 +22,7 @@ def get_posts(request):
     )
 
 
+@csrf_exempt
 def add_post(request):
     if request.method == "POST":
         Post.objects.create(
@@ -52,6 +54,7 @@ def detail(request, post_id):
     )
 
 
+@csrf_exempt
 def add_comment(request, post_id):
     if not request.user:
         raise Http404("You must be logged in to post comments!")
@@ -68,6 +71,7 @@ def add_comment(request, post_id):
     raise Http404("Invalid request method")
 
 
+@csrf_exempt
 def update_comment(request, comment_id):
     if not request.user:
         raise Http404("You must be logged in to post comments!")
